@@ -13,6 +13,7 @@ import 'package:survey_kit/src/answer_format/scale_answer_format.dart';
 import 'package:survey_kit/src/answer_format/single_choice_answer_format.dart';
 import 'package:survey_kit/src/answer_format/text_answer_format.dart';
 import 'package:survey_kit/src/answer_format/time_answer_formart.dart';
+import 'package:survey_kit/src/answer_format/time_slot_answer_format.dart';
 import 'package:survey_kit/src/result/question/agreement_question_result.dart';
 import 'package:survey_kit/src/result/question/boolean_question_result.dart';
 import 'package:survey_kit/src/result/question/date_question_result.dart';
@@ -24,6 +25,7 @@ import 'package:survey_kit/src/result/question/scale_question_result.dart';
 import 'package:survey_kit/src/result/question/single_choice_question_result.dart';
 import 'package:survey_kit/src/result/question/text_question_result.dart';
 import 'package:survey_kit/src/result/question/time_question_result.dart';
+import 'package:survey_kit/src/result/question/time_slot_question_result.dart';
 import 'package:survey_kit/src/result/question_result.dart';
 import 'package:survey_kit/src/steps/identifier/step_identifier.dart';
 import 'package:survey_kit/src/steps/predefined_steps/answer_format_not_defined_exception.dart';
@@ -40,6 +42,7 @@ import 'package:survey_kit/src/views/scale_answer_view.dart';
 import 'package:survey_kit/src/views/single_choice_answer_view.dart';
 import 'package:survey_kit/src/views/text_answer_view.dart';
 import 'package:survey_kit/src/views/time_answer_view.dart';
+import 'package:survey_kit/src/views/time_slot_answer_view.dart';
 
 part 'question_step.g.dart';
 
@@ -147,7 +150,12 @@ class QuestionStep extends Step {
           questionStep: this,
           result: questionResult as AgreementQuestionResult?,
         );
-
+      case TimeSlotAnswerFormat:
+        return TimeSlotAnswerView(
+          key: key,
+          questionStep: this,
+          result: questionResult as TimeSlotQuestionResult?,
+        );
       default:
         throw AnswerFormatNotDefinedException();
     }
