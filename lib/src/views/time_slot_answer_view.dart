@@ -116,37 +116,36 @@ class _TimeSlotAnswerViewState extends State<TimeSlotAnswerView> {
           : widget.questionStep.content,
       child: Padding(
         padding: const EdgeInsets.symmetric(vertical: 32.0),
-        child: SizedBox(
-          height: MediaQuery.of(context).size.height * 0.4,
-          child: ListView(
-            children: groupedSlots.keys.map((section) {
-              return Column(
-                children: [
-                  ListTile(
-                    title: Text(section),
-                    onTap: () => toggleSection(section),
-                    trailing: Icon(
-                      expandedSections[section] ?? false
-                          ? Icons.expand_less
-                          : Icons.expand_more,
-                    ),
+        child: ListView(
+          shrinkWrap: true,
+          physics: const NeverScrollableScrollPhysics(),
+          children: groupedSlots.keys.map((section) {
+            return Column(
+              children: [
+                ListTile(
+                  title: Text(section),
+                  onTap: () => toggleSection(section),
+                  trailing: Icon(
+                    expandedSections[section] ?? false
+                        ? Icons.expand_less
+                        : Icons.expand_more,
                   ),
-                  if (expandedSections[section] ?? false)
-                    ...groupedSlots[section]!.map((slot) {
-                      return CheckboxListTile(
-                        title: Text(slot.time),
-                        value: slot.isSelected,
-                        onChanged: (value) {
-                          setState(() {
-                            slot.isSelected = value ?? false;
-                          });
-                        },
-                      );
-                    }).toList(),
-                ],
-              );
-            }).toList(),
-          ),
+                ),
+                if (expandedSections[section] ?? false)
+                  ...groupedSlots[section]!.map((slot) {
+                    return CheckboxListTile(
+                      title: Text(slot.time),
+                      value: slot.isSelected,
+                      onChanged: (value) {
+                        setState(() {
+                          slot.isSelected = value ?? false;
+                        });
+                      },
+                    );
+                  }).toList(),
+              ],
+            );
+          }).toList(),
         ),
       ),
     );
